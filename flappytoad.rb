@@ -148,6 +148,7 @@ class FlappyToad
       gameover_update
     end
   end
+  
   def standby_update  #待机状态下角色的上下浮动
     #栅栏的滚动
     @fence.ox += FLYING_SPEED
@@ -199,8 +200,6 @@ class FlappyToad
         @toad.angle = -180
         @toad.mirror = true
         @restart.visible = true
-        #@sec.bitmap.clear
-        #@sec.bitmap.draw_text(@sec.bitmap.rect, "?", 1)
         Audio.se_play("Audio/SE/hurt")
         @status = "gameover"
       end
@@ -221,15 +220,12 @@ class FlappyToad
       Audio.se_play("Audio/SE/flap")
       @power += CHARGING_AMOUNT
     end
-
   end
   
   def dropping_update  #撞击柱子后
     @toad.angle = -180
     @toad.mirror = true
     @restart.visible = true
-    #@sec.bitmap.clear
-    #@sec.bitmap.draw_text(@sec.bitmap.rect, "?", 1)
     Audio.se_play("Audio/SE/hurt")
     until @toad.y >= 630  #进入下坠过程
       @toad.y += DROPPING_SPEED * 2
@@ -240,7 +236,6 @@ class FlappyToad
   
   def gameover_update  #游戏结束后的选择界面
     if MyBoard.press?(MyBoard::Key_E)
-      #raise Reset  #引发重置
       @power = 0 #上升动力
       @passed = false  #通过标记
       #角色复位
@@ -331,7 +326,6 @@ class FlappyToad
     end
     return false
   end
-  
 end
 
 #为使用Input模块不能处理的部分按键而临时编写的脚本。by失落的乐章
@@ -350,7 +344,6 @@ module MyBoard
   def self.press?(key)
     GKS.call(key) < 0
   end
-  
 end
 
 #===============================================================================
